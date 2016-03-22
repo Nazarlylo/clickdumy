@@ -8,6 +8,11 @@
                     @foreach($images as $img)
                             <div class="img-thumbnail">
                             <img src="/images/{{$img->images}}"title="{{$img->title}}">
+                                @if($img->approve == 1)
+                                    <div class="approv_imag"><i class="glyphicon glyphicon-ok"></i></div>
+                                 @else
+                                    <div class="approv_imag"><i class="glyphicon glyphicon-remove"></i></div>
+                                @endif
                         </div>
                     @endforeach
                 @endif

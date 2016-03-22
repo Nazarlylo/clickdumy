@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <div class="row">
@@ -8,7 +7,7 @@
                     <div class="panel-heading">Edit Click-Dummy</div>
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="POST"
-                              action="{{ url('/click-dummy/update/'.$clickdumy->id) }}" enctype="multipart/form-data">
+                              action="{{ url('/click-dummy/update/'.$clickdumy->url) }}" enctype="multipart/form-data">
                             {!! csrf_field() !!}
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label class="col-md-4 control-label">Name</label>
@@ -22,77 +21,75 @@
                                 </div>
                             </div>
                             @if($images)
-                                <div class="block_image">
                                 @foreach($images as $img)
-                                    <div class="images {{$img->id}}"><img src="/images/{{$img->images}}"><span
-                                                class="delete_img"><img src="/images/close.png"> </span></div>
+                                    <div class="block_img">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">title</label>
+                                            <div class="col-md-6">
+                                                <input type="text" name="title[]" value="{{$img->title}}">
+                                                <input type="hidden" name="id_img[]" value="{{Crypt::encrypt($img->id)}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">aprove</label>
+                                            <div class="col-md-6">
+                                                <input type="checkbox" name="approve[]" value="1" @if($img->approve)  checked @endif/>
+                                            </div>
+                                        </div>
+                                    <div class="img-thumbnail"><img src="/images/{{$img->images}}">
+                                        <input type="hidden" class="item_id" value="{{Crypt::encrypt($img->clickdum_id)}}"/>
+                                        <button type="button" title="Удалить" datasrc="{{$img->images}}" data-value="{{ $img->numb_img }}" class="btn btn-danger del_image btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                        @if($img->approve == 1)
+                                            <div class="approv_imag"><i class="glyphicon glyphicon-ok"></i></div>
+                                        @else
+                                            <div class="approv_imag"><i class="glyphicon glyphicon-remove"></i></div>
+                                        @endif
+                                        </div>
+                                    </div>
                                 @endforeach
-                                </div>
                             @endif
-                            <div class="group_image">
+                            <div class="header">Add  new image</div>
+                            <div  class="block_img">
                             <div class="form-group">
-                                <label class="col-md-4 control-label">title image1</label>
+                                <label class="col-md-4 control-label">title</label>
                                 <div class="col-md-6">
-                                    <input type="text" name="title0">
-                                    <input type="hidden" name="img_index0" value="1">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Images1</label>
-                                <div class="col-md-6">
-                                    <input type="file" name="images[]">
-                                </div>
-                            </div>
-                            </div>
-                            <div class="group_image">
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">title image2</label>
-                                <div class="col-md-6">
-                                    <input type="text" name="title1">
-                                    <input type="hidden" name="img_index1" value="2">
-                                </div>
-                            </div>
-                            <div class="form-group ">
-                                <label class="col-md-4 control-label">Images2</label>
-                                <div class="col-md-6">
-                                    <input type="file" name="images[]">
-                                </div>
-                            </div>
-                            </div>
-                            <div class="group_image">
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">title image3</label>
-                                <div class="col-md-6">
-                                    <input type="text" name="title2">
-                                    <input type="hidden" name="img_index2" value="3">
-                                </div>
-                            </div>
-                            <div class="form-group ">
-                                <label class="col-md-4 control-label">Images3</label>
-                                <div class="col-md-6">
-                                    <input type="file" name="images[]">
+                                    <input type="text" name="title[]">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-4 control-label">title image4</label>
+                                <label class="col-md-4 control-label">images</label>
                                 <div class="col-md-6">
-                                    <input type="text" name="title3">
-                                    <input type="hidden" name="img_index3" value="4">
+                                    <input type="file" name="images[]"/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-4 control-label ">Images4</label>
+                                <label class="col-md-4 control-label">aprove</label>
                                 <div class="col-md-6">
-                                    <input type="file" name="images[]">
+                                    <input type="checkbox" name="approve[]" value="1"/>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Protection</label>
-                                <div class="col-md-6">
-                                    <input type="checkbox" name="protection" value="1"
-                                           @if($clickdumy->protection) checked @endif>
-                                </div>
                             </div>
+                            <hr>
+                            <h3>Дополнительные изображения</h3>
+                            <button class="btn btn-primary add_images" type="button"><i class="glyphicon glyphicon-plus"></i></button>
+                            <br>
+                            {{--<div class="form-group">--}}
+                                {{--<label class="col-md-4 control-label">Protection</label>--}}
+                                {{--<div class="col-md-6">--}}
+                                    {{--<input type="checkbox" name="protection" value="1"--}}
+                                           {{--@if($clickdumy->protection) checked @endif>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Sort image</label>
+                                <div class="col-md-6">
+                                    <select name="sort_image">
+                                        @foreach($simages as $simage )
+                                            <option @if($simage->id ==$clickdumy->sort_image) selected @endif value="{{$simage->id}}">{{$simage->title}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                </div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
@@ -100,7 +97,7 @@
                                     </button>
                                 </div>
                             </div>
-
+                            {{--<input type="hidden" name="_token" value="{!!csrf_token()!!}">--}}
                         </form>
                 </div>
                 </div>

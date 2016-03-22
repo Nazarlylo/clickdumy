@@ -35,14 +35,16 @@
         Route::get('/click-dummy/create', 'ClickdumyController@create');
 		Route::get('/', 'HomeController@index');
         Route::post('/click-dummy', 'ClickdumyController@store');
-		Route::any('/click-dummy/update/{id}', 'ClickdumyController@update');
-		Route::any('/click-dummy/delete/{id}', 'ClickdumyController@delete');
+		Route::any('/click-dummy/update/{url}', 'ClickdumyController@update');
+		Route::any('/click-dummy/delete/{url}', 'ClickdumyController@delete');
         Route::get('/click-dummy', 'ClickdumyController@index');
         Route::any('/click-dummy/upload_img', 'ClickdumyController@multiple_upload');
-        Route::get('/click-dummy/{id}/edit', 'ClickdumyController@edit');
+        Route::get('/click-dummy/{url}/edit', 'ClickdumyController@edit');
+		Route::post('/click-dummy/del_image','ClickdumyController@delete_img');
+		Route::post('/click-dummy/search','ClickdumyController@search');
        // Route::get('/click-dummy/{id}', 'ClickdumyController@show');
 		Route::get('/click-dummy', ['middleware' => 'auth.basic','uses'=>'ClickdumyController@index']);
-		Route::get('/click-dummy/{id}', ['middleware' => 'auth.post','uses'=>'ClickdumyController@show'
+		Route::get('/click-dummy/{url}', ['middleware' => 'auth.post','uses'=>'ClickdumyController@show'
 		]);
     });
 

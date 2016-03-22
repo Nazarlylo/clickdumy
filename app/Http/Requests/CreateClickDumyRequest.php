@@ -26,10 +26,10 @@ class CreateClickDumyRequest extends Request
     public function rules()
     {
         if(Auth::guest()) {
-            return [ 'name' => 'required','title0'=>'required', 'user_name' => 'required', 'email' => 'required|email|max:255|unique:users', 'password' => 'required|min:6' ];
+            return [ 'name' => 'required|unique:clickdumies', 'user_name' => 'required', 'email' => 'required|email|max:255|unique:users', 'password' => 'required|min:6' ];
         }
         else{
-            return [ 'name' => 'required','title0'=>'required'];
+            return [ 'name' => 'required|unique:clickdumies'];
         }
     }
 }

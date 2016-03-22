@@ -4,17 +4,16 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
-				<div class="users">
-                <span>Name:{{ $user->name }}</span>
-                <span>Groupe:@if($user->group ==1)Clients @else Verdure @endif</span>
-					<span>Email:{{ $user->email }}</span>
-				</div>
+				{{--<div class="users">--}}
+                {{--<span>Name:{{ $user->name }}</span>--}}
+                {{--<span>Groupe:@if($user->group ==1)Clients @else Verdure @endif</span>--}}
+					{{--<span>Email:{{ $user->email }}</span>--}}
+				{{--</div>--}}
 				<div class="panel panel-default">
 					{{--<div class="panel-heading">Register</div>--}}
 					<div class="panel-body">
 						<form class="form-horizontal" role="form" method="POST" action="{{ url('/update/'.$user->id) }}">
 							{!! csrf_field() !!}
-
 							<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 								<label class="col-md-4 control-label">Name</label>
 

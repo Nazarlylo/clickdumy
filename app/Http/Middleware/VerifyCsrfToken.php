@@ -13,6 +13,7 @@ class VerifyCsrfToken extends BaseVerifier
      */
     protected $except = [
         '/click-dummy',
+        '/click-dummy/search'
     ];
 }
 
