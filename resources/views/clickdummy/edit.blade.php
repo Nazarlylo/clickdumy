@@ -83,7 +83,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">Sort image</label>
                                 <div class="col-md-6">
-                                    <select name="sort_image">
+                                    <select name="sort_i">
                                         @foreach($simages as $simage )
                                             <option @if($simage->id ==$clickdumy->sort_image) selected @endif value="{{$simage->id}}">{{$simage->title}}</option>
                                         @endforeach
