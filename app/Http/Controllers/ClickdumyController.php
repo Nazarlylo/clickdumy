@@ -5,6 +5,7 @@ use App\Clickdumy;
 use App\User;
 use App\Image;
 use App\Simage;
+use Illuminate\Support\Facades\Mail;
 use Input;
 use Validator;
 use Session;
@@ -71,7 +72,7 @@ class ClickdumyController extends Controller
 			$this->create_image(['clickdum_id'=>$click_id->id,'title' => $img['title'],'images'=>$img['image'],'approve'=>$img['approve'],'numb_img'=>$key]);
 		}
 		\Session::flash('flash_message','You article has been create');
-
+        $this->sendmail(\Auth::user()->email);
 		return redirect('click-dummy');
 	}
 	private function create_image($data = []){
@@ -152,5 +153,16 @@ class ClickdumyController extends Controller
 		$search =$request->input('search');
 		$result = Clickdumy::where('name', 'like', '%' . trim($search) . '%')->get();
 	    return view('clickdummy.search',compact('result'));
+	}
+	public function sendmail($email){
+		$data = array(
+			'name' => $email,
+		);
+		Mail::send('auth.emails.welcome', $data, function ($message) use ($email) {
+			$message->from('yourEmail@domain.com', 'Learning Laravel');
+			$message->to($email)->subject('Learning Laravel test email');
+
+		});
+
 	}
 }
