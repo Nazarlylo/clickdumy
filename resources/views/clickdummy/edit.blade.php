@@ -30,12 +30,7 @@
                                                 <input type="hidden" name="id_img[]" value="{{Crypt::encrypt($img->id)}}">
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label">aprove</label>
-                                            <div class="col-md-6">
-                                                <input type="checkbox" name="approve[]" value="1" @if($img->approve)  checked @endif/>
-                                            </div>
-                                        </div>
+                                    
                                     <div class="img-thumbnail"><img src="/images/{{$img->images}}">
                                         <input type="hidden" class="item_id" value="{{Crypt::encrypt($img->clickdum_id)}}"/>
                                         <button type="button" title="Удалить" datasrc="{{$img->images}}" data-value="{{ $img->numb_img }}" class="btn btn-danger del_image btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
